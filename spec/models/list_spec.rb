@@ -31,8 +31,8 @@ RSpec.describe List, type: :model do
   describe '#total_duration' do
     it 'should add all of the task durations and return the sum' do
       list = List.create(name: "What up")
-      task_1 = Task.create(duration: 10, list_id: list.id, name: "Fight a possum")
-      task_2 = Task.create(duration: 30, list_id: list.id, name: "Fight a racoon")
+      Task.create(duration: 10, list_id: list.id, name: "Fight a possum")
+      Task.create(duration: 30, list_id: list.id, name: "Fight a racoon")
       
       expect(list.total_duration).to eq(40)
     end
@@ -44,7 +44,7 @@ RSpec.describe List, type: :model do
       task_1 = Task.create(complete: false, list_id: list.id, name: "Fight a possum")
       task_2 = Task.create(complete: false, list_id: list.id, name: "Fight a racoon")
       task_3 = Task.create(complete: true, list_id: list.id, name: "Fight a hippo") 
-      expect(list.incomplete_tasks).to eq([task_1, task_2])
+      expect(list.incomplete_tasks).to match_array([task_1, task_2])
     end
   end
 
@@ -54,7 +54,7 @@ RSpec.describe List, type: :model do
       task_1 = Task.create(favorite: true, list_id: list.id, name: "Fight a possum")
       task_2 = Task.create(favorite: true, list_id: list.id, name: "Fight a racoon")
       task_3 = Task.create(favorite: false, list_id: list.id, name: "Fight a hippo")
-      expect(list.favorite_tasks).to eq([task_1, task_2])
+      expect(list.favorite_tasks).to match_array([task_1, task_2])
     end
   end
 end
